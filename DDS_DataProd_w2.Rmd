@@ -1,0 +1,77 @@
+---
+title: "DSS_DataProd_w2"
+author: "Jie Yang"
+date: "October 22, 2017"
+output: html_document
+---
+# Resturants near Albany area
+
+* Objective trying to duplicate the google search maps with resturants and reviews
+Publish on Rpub:
+http://rpubs.com/aceduce/DSS_DataProd_w2
+
+```{r setup, include=FALSE, cache=TRUE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Date
+
+Date the document created. 
+
+```{r}
+format(Sys.time(), "%a %b %d %X %Y")
+```
+## Map from Google
+
+![Google Search on the Resturants](/Coursera/DS/Pack/DataProduct/Capture.PNG){width=70%}
+
+## Use leaflet to generate similar graph
+1. Insert hyperlinks to the resturants 
+*use paste to change the string format to have popup links*
+
+`res$pop<-paste('<a href=\'', res$Link,'\'>',res$Names,'</a>',sep="")`
+
+2. Generate the excel data list. Attached in this repo. 
+
+3. Use `addCircles(weight = 1, radius = sqrt(res$Review_num)*50, fillColor=res$Dollars)`
+
+Circle size is decided by number of reviewers. 
+
+```{r warning=FALSE}
+library(leaflet)
+setwd("D:/Coursera/DS/Pack/DataProduct/")
+#Resturants latitude/altitude
+res<-read.csv("resturants.csv")
+names(res)[2]<-"lat"
+names(res)[3]<-"lng"
+
+res$pop<-paste('<a href=\'', res$Link,'\'>',res$Names,'</a>',sep="")
+
+Icon <- makeIcon(
+  iconUrl = "https://lh5.googleusercontent.com/p/AF1QipO01EU0KgRQVw_6qeIL7Kf1U4EY6hp1WZ8vb95g=w408-h725-k-no",
+  iconWidth = 62*215/230, iconHeight = 62,
+  iconAnchorX = 31*215/230/2, iconAnchorY = 16
+)
+
+m<-res %>% leaflet() %>% 
+  addTiles() %>%
+  addMarkers(clusterOptions = markerClusterOptions(),popup=res$pop, icon=Icon)%>%
+  addCircles(weight = 1, radius = sqrt(res$Review_num)*50, fillColor="green")
+m
+```
+
+Now, I add the cost information as legends. 
+
+```{r warning=FALSE}
+#Set the colors
+res$col<-sapply(res$Dollars,
+    function(x) {switch(x,  "$$" = "green",
+                            "$$$"= "blue", "$$$$"="red", 1)})
+
+m1<-res %>% leaflet() %>% 
+  addTiles() %>%
+  addCircleMarkers(clusterOptions = markerClusterOptions(),popup=res$pop, weight = 1, radius = sqrt(res$Review_num)*5, fillColor=res$col) %>%
+  addLegend(labels = unique(res$Dollars), colors = c("green", "blue", "red"))
+
+m1
+```

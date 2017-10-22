@@ -1,0 +1,10 @@
+name: Publish Document
+title:
+username:
+account: rpubs
+server: rpubs.com
+hostUrl: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/321472/f8d23cae76ad4061ad793dfa8ce0af5e
+bundleId: https://api.rpubs.com/api/v1/document/321472/f8d23cae76ad4061ad793dfa8ce0af5e
+url: http://rpubs.com/aceduce/321472
+when: 1508708789.66436
