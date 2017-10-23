@@ -1,0 +1,139 @@
+---
+title: "DS_DataProd_w3 <br> A State Tax survey"
+author: "Jie Yang"
+date: "October 22, 2017"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE, warnings=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
+```
+
+## Dataset
+
+Here, the US State goverment data for tax collection is used. 
+Key items in the survey:
+State Name, Tax Item Name, Survey year. 
+An example of the outputs are:
+
+```{r comment="", echo=FALSE}
+setwd("D:/Coursera/DS/Pack/DataProduct/")
+df<-read.table("2016-stc-detailed.csv",stringsAsFactors=FALSE, na.strings = "X", sep=',', header = TRUE)
+head(df)
+
+#convert the numbers with characters into numerics
+df$AMOUNT<-as.numeric(gsub(",","",df$AMOUNT))
+```
+
+Data source:
+
+*https://www.census.gov/data/tables/2016/econ/stc/2016-annual.html*
+
+
+## Using Plotly
+
+This is to use plotly `library(plotly)` to do some plots and show the familarity with the `Rmarkdown`.
+```{r, echo=FALSE, results='hide'}
+#data exploration 
+#NA portion in the tax amount
+mean(is.na(df$AMOUNT))
+#tax items in total, from T00 to TA5
+table(df$item)
+
+```
+
+## Data Explorations
+
+- For the excercise, we re-do the summation for all the data. 
+
+```{r echo=FALSE, warning=FALSE,message = FALSE}
+library("dplyr")
+library("plotly")
+df_sum<-df %>%
+  filter(!is.na(AMOUNT) & item!="T00") %>%
+  group_by(State_Name) %>%
+  summarise(Total=sum(AMOUNT)) 
+#compare the summations
+
+df_s<-df[df[,"item"]=="T00", ][,c("State_Name","AMOUNT","item","ITEM_NAME")]
+
+df_s<-df_s[order(df_s$State_Name),]
+#df_s$total_add<-df_sum[,2]
+df_s_states<-subset(df_s, State_Name!="United States")
+
+# we only plot the states, not US in total.
+df_sum_states<-subset(df_sum, State_Name!="United States")
+p1<-plot_ly(df_sum_states, x = ~State_Name, y = ~Total, type = "bar", name="sum")%>%
+  add_lines(name=~"from summations")
+p2<-plot_ly(df_s_states, x = ~State_Name, y = ~AMOUNT, type = "bar",name="dataset")%>%
+  add_lines(name=~"from dataset")
+#Look at total contributions
+p<-subplot(p1,p2)
+p
+```
+
+Clearly, one can see the total is not the simple summation of different items.  I'll use the *sum from the original dataset*. 
+
+## Contirbutions from States
+
+We see these two states contribute most to the tax. 
+
+```{r}
+#p3<-plot_ly(df_sum_states, labels= ~State_Name, values= ~Total, type = "pie",name="sum")
+p4<-plot_ly(df_s_states, labels= ~State_Name, values= ~AMOUNT, type = "pie",name="dataset", showlegend=TRUE)%>%
+  add_pie(hole = 0.5) %>%
+  layout(legend = ~State_Name)
+  
+p4
+```
+
+## California Tax in 2016
+
+```{r}
+#df_states<-df[df[,"item"]!="T00", ][,c("State_Name","AMOUNT","item","ITEM_NAME")]
+df_CA<-subset(df, State_Name=="California" & item!="T00", c("State_Name","AMOUNT","item","ITEM_NAME"))
+
+df_NY<-subset(df, State_Name=="New York" & item!="T00", c("State_Name","AMOUNT","item","ITEM_NAME"))
+
+plot_ly(df_CA, labels= ~ITEM_NAME, values= ~AMOUNT, type = "pie")%>%
+  layout(title = "California Tax in 2016")
+```
+
+## New York Tax in 2016
+
+```{r}
+plot_ly(df_NY, labels= ~ITEM_NAME, values= ~AMOUNT, type = "pie")%>%
+  layout(title = "New York Tax in 2016")
+```
+
+## Comparison cont'
+
+Let's compare the NY and CA for a bit (breakdown items)
+
+```{r}
+df_CA_NY<-rbind(df_CA,df_NY)
+plot_ly(df_CA_NY, y=~ITEM_NAME, x=~AMOUNT, type="bar", color=~State_Name)
+```
+
+## Further plot
+
+One can identify the key difference and plot against few parameters for further insights. 
+
+- Populations
+- tax rates
+- Wage levels
+  
+
+
+## Reference
+
+https://github.com/spujadas/coursera-ddp-plotly/blob/master/road-accidents-gb-2005-2015.Rmd
+
+https://plot.ly/r/subplots/
+
+https://plot.ly/r/mixed-subplots/
+
+https://plot.ly/r/reference/
+
+
+
