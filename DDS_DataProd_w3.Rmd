@@ -12,6 +12,8 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
 ## Dataset
 
 Here, the US State goverment data for tax collection is used. The full report is at *http://rpubs.com/aceduce/DS_DataProd_w3*
+Github Rmarkdown:
+*https://github.com/aceduce/DSS_DataProd/blob/master/DDS_DataProd_w3.Rmd*
 
 Key items in the survey:
 State Name, Tax Item Name, Survey year. 
