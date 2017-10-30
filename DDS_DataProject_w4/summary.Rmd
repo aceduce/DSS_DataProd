@@ -1,0 +1,63 @@
+---
+title: "NFL and Politics"
+author: "Jie Yang"
+date: "October 29, 2017"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## NFL and Politics
+
+This is an R Markdown presentation for the final week for Shiny Application and Reproducible Pitch.
+Here, I did a small project on the major league fan base political preference in the presidential election in 2016. This is largely utilizing the data and story from link below.
+https://fivethirtyeight.com/features/how-every-nfl-teams-fans-lean-politically/
+
+Leagues in discussion includes NFL, MLB, NBA, NHL, NASCAR and etc.
+
+## Project
+
+The project consists of 3 major components.
+
+- Search times pulled from Google for the major leagues (big 3)
+- Study the regression on the political preference for the fans.
+- Plot the State maps for the NFL base fan preference.
+Link for the source code is at
+Project demo is at
+
+
+## Datasets 
+
+In total, 4 data sets included for the analysis. 
+
+1.Search trending from google.
+2.Vote data from 2016. Loaded into `corelat` to find the correlations.
+3.Survey data from survey monkey
+4.Team name for NFL and their located States.
+```{r echo=TRUE, eval=FALSE}
+trend<-read.table("multiTimeline.csv", header=T, sep=",", skip=2, stringsAsFactors = FALSE)
+corelat<-read.table("google_trend.csv",header=T,sep=",",skip=1, stringsAsFactors = FALSE)
+survey<-read.table("surveymonkey.csv",header=T,sep=",",skip=1, stringsAsFactors = FALSE)
+TeamState<-read.table("TeamByState.csv",header=T,sep=",",stringsAsFactors = FALSE)
+```
+Some data clean such as removing % and translate the percentage into numeric values.
+```{r, eval=FALSE, echo=TRUE}
+survey[,i]<-as.numeric(gsub("%","",survey[,i]))/100
+```
+
+## Plots
+
+Quite a few libraries are used to generate plots. Such as `ggplot2()`, `rcharts`,`nvd3`. Images are inserted in the project, such as `htmlOutput`. Classics such as `renderChart`,`renderText` etc.
+```{r, eval=FALSE, echo=TRUE}
+htmlOutput("PartImg")
+```
+Read html images with logic conidtions.
+```{r, eval=FALSE, echo=TRUE}
+output$PartImg<-renderText(
+    if( abs(modfit()[[1]][2]) <0.05) {
+      c('<img src="',"IND.png",'",width="', '"90" ',"height=", '"70">')
+    }
+```
+
