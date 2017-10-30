@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>NFL and Politics</title>
+  <title>Sports and Politics</title>
 
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -21,7 +21,7 @@
     var SLIDE_CONFIG = {
       // Slide settings
       settings: {
-                title: 'NFL and Politics',
+                title: 'Sports and Politics',
                         useBuilds: true,
         usePrettify: true,
         enableSlideAreas: true,
@@ -98,9 +98,9 @@
           </hgroup>
   </slide>
 
-<slide class=''><hgroup><h2>NFL and Politics</h2></hgroup><article  id="nfl-and-politics">
+<slide class=''><hgroup><h2>Sports and Politics</h2></hgroup><article  id="sports-and-politics">
 
-<p>This is an R Markdown presentation for the final week for Shiny Application and Reproducible Pitch. Here, I did a small project on the major league fan base political preference in the presidential election in 2016. This is largely utilizing the data and story from link below. <a href='https://fivethirtyeight.com/features/how-every-nfl-teams-fans-lean-politically/' title=''>https://fivethirtyeight.com/features/how-every-nfl-teams-fans-lean-politically/</a></p>
+<p>This is an R Markdown presentation for the final week for Shiny Application and Reproducible Pitch. Here, I did a small project on the major league fan base political preference in the presidential election in 2016. This is largely utilizing the data and story from <a href='https://fivethirtyeight.com/features/how-every-nfl-teams-fans-lean-politically/' title=''>link</a></p>
 
 <p>Leagues in discussion includes NFL, MLB, NBA, NHL, NASCAR and etc.</p>
 
@@ -111,19 +111,20 @@
 <ul>
 <li>Search times pulled from Google for the major leagues (big 3)</li>
 <li>Study the regression on the political preference for the fans.</li>
-<li>Plot the State maps for the NFL base fan preference. Link for the source code is at Project demo is at</li>
+<li>Plot the State maps for the NFL base fan preference. Link for the <a href='https://github.com/aceduce/DSS_DataProd/tree/master/DDS_DataProject_w4/NFL_Politics' title=''>source code</a> Project demo is at <a href='https://aceduce.shinyapps.io/sports_politics/' title=''>here</a></li>
 </ul>
 
 </article></slide><slide class=''><hgroup><h2>Datasets</h2></hgroup><article  id="datasets">
 
 <p>In total, 4 data sets included for the analysis.</p>
 
-<p>1.Search trending from google. 2.Vote data from 2016. Loaded into <code>corelat</code> to find the correlations. 3.Survey data from survey monkey 4.Team name for NFL and their located States.</p>
+<p>1.Search trending from google.</p>
 
-<pre class = 'prettyprint lang-r'>trend&lt;-read.table(&quot;multiTimeline.csv&quot;, header=T, sep=&quot;,&quot;, skip=2, stringsAsFactors = FALSE)
-corelat&lt;-read.table(&quot;google_trend.csv&quot;,header=T,sep=&quot;,&quot;,skip=1, stringsAsFactors = FALSE)
-survey&lt;-read.table(&quot;surveymonkey.csv&quot;,header=T,sep=&quot;,&quot;,skip=1, stringsAsFactors = FALSE)
-TeamState&lt;-read.table(&quot;TeamByState.csv&quot;,header=T,sep=&quot;,&quot;,stringsAsFactors = FALSE)</pre>
+<p>2.Vote data from 2016. Loaded into <code>corelat</code> to find the correlations.</p>
+
+<p>3.Survey data from survey monkey</p>
+
+<p>4.Team name for NFL and their located States.</p>
 
 <p>Some data clean such as removing % and translate the percentage into numeric values.</p>
 

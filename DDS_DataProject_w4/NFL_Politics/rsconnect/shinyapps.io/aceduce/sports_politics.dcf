@@ -1,0 +1,12 @@
+name: sports_politics
+title: Sports_Politics
+username:
+account: aceduce
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 230449
+bundleId: 1051222
+url: https://aceduce.shinyapps.io/sports_politics/
+when: 1509333960.73656
+asMultiple: FALSE
+asStatic: FALSE

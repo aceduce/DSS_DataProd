@@ -1,4 +1,4 @@
-setwd("D:/Coursera/DS/Pack/DataProduct/DDS_DataProject_w4")
+#setwd("D:/Coursera/DS/Pack/DataProduct/DDS_DataProject_w4")
 
 source("map.R",local=TRUE)
 

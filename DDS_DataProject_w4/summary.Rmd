@@ -1,5 +1,5 @@
 ---
-title: "NFL and Politics"
+title: "Sports and Politics"
 author: "Jie Yang"
 date: "October 29, 2017"
 output: ioslides_presentation
@@ -9,11 +9,10 @@ output: ioslides_presentation
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## NFL and Politics
+## Sports and Politics
 
 This is an R Markdown presentation for the final week for Shiny Application and Reproducible Pitch.
-Here, I did a small project on the major league fan base political preference in the presidential election in 2016. This is largely utilizing the data and story from link below.
-https://fivethirtyeight.com/features/how-every-nfl-teams-fans-lean-politically/
+Here, I did a small project on the major league fan base political preference in the presidential election in 2016. This is largely utilizing the data and story from [link](https://fivethirtyeight.com/features/how-every-nfl-teams-fans-lean-politically/)
 
 Leagues in discussion includes NFL, MLB, NBA, NHL, NASCAR and etc.
 
@@ -24,8 +23,8 @@ The project consists of 3 major components.
 - Search times pulled from Google for the major leagues (big 3)
 - Study the regression on the political preference for the fans.
 - Plot the State maps for the NFL base fan preference.
-Link for the source code is at
-Project demo is at
+Link for the [source code](https://github.com/aceduce/DSS_DataProd/tree/master/DDS_DataProject_w4/NFL_Politics)
+Project demo is at [here](https://aceduce.shinyapps.io/sports_politics/)
 
 
 ## Datasets 
@@ -33,10 +32,14 @@ Project demo is at
 In total, 4 data sets included for the analysis. 
 
 1.Search trending from google.
+
 2.Vote data from 2016. Loaded into `corelat` to find the correlations.
+
 3.Survey data from survey monkey
+
 4.Team name for NFL and their located States.
-```{r echo=TRUE, eval=FALSE}
+
+```{r echo=FALSE, eval=FALSE}
 trend<-read.table("multiTimeline.csv", header=T, sep=",", skip=2, stringsAsFactors = FALSE)
 corelat<-read.table("google_trend.csv",header=T,sep=",",skip=1, stringsAsFactors = FALSE)
 survey<-read.table("surveymonkey.csv",header=T,sep=",",skip=1, stringsAsFactors = FALSE)
